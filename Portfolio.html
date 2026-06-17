@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My School Portfolio</title>
+    <style>
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f4f6f9;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Navigation Bar */
+        nav {
+            background-color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 15px;
+            position: sticky;
+            top: 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            z-index: 100;
+        }
+
+        .nav-links {
+            display: flex;
+            justify-content: center;
+        }
+
+        nav a {
+            color: #2a5298;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #1e3c72;
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 21px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+        }
+
+        .menu-toggle .bar {
+            height: 3px;
+            width: 100%;
+            background-color: #2a5298;
+            border-radius: 10px;
+        }
+
+        /* Header Section */
+        header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: #fff;
+            padding: 60px 20px;
+        }
+
+        .header-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .profile-img {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid rgba(255, 255, 255, 0.9);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
+            flex-shrink: 0;
+        }
+
+        header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 5px;
+            letter-spacing: 0.5px;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        /* Container & Sections */
+        .container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        section {
+            background: #ffffff;
+            padding: 35px;
+            margin-bottom: 35px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.03);
+        }
+
+        section h2 {
+            color: #1e3c72;
+            font-size: 1.8rem;
+            border-bottom: 2px solid #edf2f7;
+            padding-bottom: 12px;
+            margin-bottom: 20px;
+        }
+
+        /* Grid Cards Layout */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+
+        .card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+        }
+
+        /* FIXED IMAGE FIXES HERE */
+        .card-img, .cert-img {
+            width: 100%;
+            height: 180px;
+            display: block;
+        }
+
+        .card-img {
+            object-fit: contain; /* Zooms out to reveal the whole image inside the box */
+            background-color: #f7fafc; /* Clean background padding color for uncropped graphics */
+            padding: 10px; /* Optional slight breathing room around project visuals */
+        }
+
+        .cert-img {
+            background-color: #f7fafc;
+            object-fit: contain;
+            padding: 15px;
+        }
+
+        .card-content {
+            padding: 20px;
+        }
+
+        .card h3 {
+            color: #1e3c72;
+            margin-bottom: 8px;
+            font-size: 1.3rem;
+        }
+
+        /* Tags */
+        .subject-tag {
+            display: inline-block;
+            background: #e6fffa;
+            color: #319795;
+            padding: 3px 10px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .cert-tag {
+            display: inline-block;
+            background: #ebf8ff;
+            color: #2b6cb0;
+            padding: 3px 10px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .cert-meta {
+            font-size: 0.85rem;
+            color: #718096;
+            margin-top: 8px;
+            border-top: 1px solid #edf2f7;
+            padding-top: 8px;
+        }
+
+        /* Skills Badges */
+        .list-items {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            list-style: none;
+            margin-top: 15px;
+        }
+
+        .list-items li {
+            background: #edf2f7;
+            color: #4a5568;
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px;
+            color: #718096;
+            font-size: 0.9rem;
+        }
+
+        /* Mobile Optimization */
+        @media (max-width: 600px) {
+            .header-container { flex-direction: column; text-align: center; }
+            header h1 { font-size: 2.2rem; }
+            nav { justify-content: flex-end; padding: 15px 25px; }
+            .menu-toggle { display: flex; }
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: #ffffff;
+                box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+                padding: 15px 0;
+                text-align: center;
+            }
+            .nav-links.active { display: flex; }
+            nav a { margin: 12px 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <button class="menu-toggle" aria-label="Toggle navigation" onclick="toggleMenu()">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </button>
+        <div class="nav-links" id="navLinks">
+            <a href="#about" onclick="toggleMenu()">About Me</a>
+            <a href="#projects" onclick="toggleMenu()">School Projects</a>
+            <a href="#certificates" onclick="toggleMenu()">Certificates</a>
+            <a href="#activities" onclick="toggleMenu()">Activities & Skills</a>
+            <a href="#contact" onclick="toggleMenu()">Contact</a>
+        </div>
+    </nav>
+
+    <header>
+        <div class="header-container">
+            <img src="p1.jpg" alt="Profile Picture" class="profile-img">
+            <div class="header-text">
+                <h1>Felix B. Rabor IV</h1>
+                <p>Student ID: 2022-01254</p>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+
+        <section id="about">
+            <h2>About Me</h2>
+            <p>Driven by curiosity and a love for problem-solving, I am an academic creator currently studying at Davao Del Norte State College. My academic focus centers around [Subject 1] and [Subject 2], where I enjoy exploring how theoretical concepts apply to real-world scenarios.
+
+This portfolio is a curated collection of my independent work, key school assignments, and verified certifications. I am dedicated to continuous growth, effective communication, and delivering high-quality results in everything I take on. Feel free to explore my featured projects below or get in touch via my contact section!</p>
+        </section>
+
+        <section id="projects">
+            <h2>Featured Projects & Coursework</h2>
+            <p>Here are a few examples of assignments and projects I've completed across different classes:</p>
+            
+            <div class="grid">
+                <div class="card">
+                    <img src="nextquest.png" alt="Science Thumbnail" class="card-img">
+                    <div class="card">
+    <div class="card-content">
+        <span class="subject-tag">Web Development</span>
+        <h3>Next Quest: Gaming Marketplace</h3>
+        <p>Designed and structured the frontend for a conceptual e-commerce and gaming service platform. The application features an intuitive layout for browsing, buying, and selling game accounts, alongside a specialized booking system for account piloting services. Emphasized clean visual hierarchy, secure-looking user flows, and responsive layouts tailored for the gaming community.</p>
+    </div>
+                    </div>
+                </div>
+                 <div class="card">
+                    <img src="logo.png" alt="Tech Thumbnail" class="card-img">
+                    <div class="card-content">
+                        <span class="subject-tag">OJT Project</span>
+                        <h3>QAPP</h3>
+                        <p>Developed during my On-the-Job Training (OJT) to optimize and digitize the plant auditing process on an active farm. Designed an efficient, mobile-first user interface tailored for field workers to log crop conditions, track growth metrics, and audit agricultural data seamlessly. This project emphasized creating high-visibility layouts and clean data-entry flows for fast, error-free operations in real-world environments.</p>
+                    </div>
+                </div>
+                 <div class="card">
+                    <img src="ditascom.png" alt="Tech Thumbnail" class="card-img">
+                    <div class="card-content">
+                        <span class="subject-tag">Capstone Project</span>
+                        <h3>Ditascom</h3>
+                        <p>Served as the definitive Capstone Project, designed to transform traditional, paper-based sacramental record-keeping into a streamlined digital management system. Engineered an intuitive, highly structured frontend interface optimized for secure data archival, fast record searchability, and seamless certificate generation. This project focused on solving real-world physical document degradation and administrative bottlenecks through clean data visualization and robust dashboard architecture.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="certificates">
+            <h2>Certificates & Achievements</h2>
+            <p>Here are the awards, online courses, or credentials I have earned:</p>
+            
+            <div class="grid">
+                <div class="card">
+                    <img src="c1.jpg" alt="Certificate Badge" class="cert-img">
+                    <div class="card-content">
+                        <span class="cert-tag"> </span>
+                        <h3>Certificate Of Completion</h3>
+                        <div class="cert-meta">
+                            <p><strong>Issued by:</strong> Davao Del Norte State College</p>
+                            <p><strong>Date:</strong> November 2025</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="c2.jpg" alt="Certificate Badge" class="cert-img">
+                    <div class="card-content">
+                        <span class="cert-tag">Course Achievement</span>
+                        <h3>Certificate Of Completion</h3>
+                        <div class="cert-meta">
+                            <p><strong>Issued by:</strong> Davao Del Norte State College</p>
+                            <p><strong>Date:</strong> November 2025</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="c3.jpg" alt="Certificate Badge" class="cert-img">
+                    <div class="card-content">
+                        <span class="cert-tag">Course Achievement</span>
+                        <h3>Certificate Of Recognition</h3>
+                        <div class="cert-meta">
+                            <p><strong>Issued by:</strong> Institute of Computing</p>
+                            <p><strong>Date:</strong> May 2024</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="c4.jpg" alt="Certificate Badge" class="cert-img">
+                    <div class="card-content">
+                        <span class="cert-tag">Course Achievement</span>
+                        <h3>Certificate Of Completion</h3>
+                        <div class="cert-meta">
+                            <p><strong>Issued by:</strong>  Hijo Resources Corporation</p>
+                            <p><strong>Date:</strong> June 2026</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="c5.png" alt="Certificate Badge" class="cert-img">
+                    <div class="card-content">
+                        <span class="cert-tag">Course Achievement</span>
+                        <h3>Certificate Of Presentation</h3>
+                        <div class="cert-meta">
+                            <p><strong>Issued by:</strong>Davao Del Norte State College,
+                            Davao Oriental State University</p>
+                            <p><strong>Date:</strong> June 2026</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="c6.jpg" alt="Certificate Badge" class="cert-img">
+                    <div class="card-content">
+                        <span class="cert-tag">Course Achievement</span>
+                        <h3>Certificate Of Participation</h3>
+                        <div class="cert-meta">
+                            <p><strong>Issued by:</strong> Institute of Computing</p>
+                            <p><strong>Date:</strong> May 2024</p>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </section>
+
+        <section id="activities">
+            <h2>Extracurriculars & Skills</h2>
+            <ul class="list-items">
+                <li>Public Speaking</li>
+                <li>Research & Analysis</li>
+                <li>Critical Thinking</li>
+                <li>Responsive Design</li>
+            </ul>
+        </section>
+
+        <section id="contact">
+            <h2>Contact Information</h2>
+            <p style="margin-bottom: 10px;">If you would like to reach out regarding my work or academic opportunities, please use the details below:</p>
+            <p><strong>Email:</strong>felixrabor0@gmail.com</p>
+            <p><strong>Phone:</strong> 09156247072</p>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Portfolio Dashboard. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            const menuToggle = document.querySelector(".menu-toggle");
+            const navLinks = document.getElementById("navLinks");
+            if (window.getComputedStyle(menuToggle).display !== "none") {
+                navLinks.classList.toggle("active");
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,16 @@
+[package]
+name = "felixrabor0-source/myportfolio"
+version = "0.1.0"
+description = "My School Portfolio Web App"
+
+[[modules]]
+name = "server"
+source = "wasmer/static-web-server"
+abi = "wasi"
+
+[[fs]]
+pkg = "static-fs"
+from = "."
+
+[redirects]
+"/*" = "/index.html"
